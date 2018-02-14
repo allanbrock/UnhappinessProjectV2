@@ -78,8 +78,9 @@
                     <div class="pre-scrollable">
                         <ul class="list-group">
                             <%
-                                for (int i = stories.length - 1; i >= 0; i--) {
-                            %>
+                            for (int i = stories.length - 1; i >= 0; i--)
+                            {
+                        %>
                             <li class="list-group-item">[<%=stories[i].getUsername()%>] - <%=stories[i].getStory()%>
                             </li>
                             <%

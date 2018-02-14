@@ -1,5 +1,4 @@
-<%--@ page import="com.endicott.edu.ui.UiMessage" %>
-<%@ page import="com.endicott.edu.xxxxmodels.CollegeModel" --%>
+<%--@ page import="com.endicott.edu.ui.UiMessage" --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <title>Endicott Unhappiness Project</title>
@@ -21,16 +20,6 @@
   if (msg == null) {
       msg = new UiMessage();
       msg.setMessage("");
-  }
-  CollegeModel college = (CollegeModel) request.getAttribute("college");
-  if (college == null) {
-      college = new CollegeModel();
-  }
-  String hostOfSim = (String) request.getAttribute("host");
-  if (hostOfSim == null) {
-    hostOfSim = "http://localhost:8080/enccollegesim/";
-  } else {
-    hostOfSim = hostOfSim;
   }
 --%>
 <p></p>
