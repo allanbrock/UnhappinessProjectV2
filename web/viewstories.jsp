@@ -67,7 +67,7 @@
 
         <!-- Display the jumbotron -->
         <div class="jumbotron">
-            <h1>Oh No!</h1>
+            <h1>Oh No!!!</h1>
         </div>
 
         <!-- Display a list of stories -->
