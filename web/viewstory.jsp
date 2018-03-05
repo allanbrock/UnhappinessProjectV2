@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<title>Unhappy Stories</title>
+<title>Story</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="resources/style.css">
 <!-- Latest compiled and minified CSS -->
@@ -31,9 +31,10 @@
         user.setUsername("anonymous");
     }
 
-    StoryModel stories[] = (StoryModel[]) request.getAttribute("stories");
-    if (stories == null) {
-        stories = new StoryModel[0];
+    StoryModel story = (StoryModel) request.getAttribute("story");
+    if (story == null) {
+        story = new StoryModel();
+        story.setStory("Unavailable.");
     }
 %>
 <p></p>
@@ -65,31 +66,13 @@
             </div>
         </nav>
 
-        <!-- Display the jumbotron -->
-        <div class="jumbotron">
-            <h1>Oh No!!!</h1>
-        </div>
-
-        <!-- Display a list of stories -->
+        <!-- Display story -->
         <div class="container">
-            <div class="row">
-                <div class="well well-sm">
-                    <h3><p class="text-primary"><%=stories.length%> Stories</h3>
-                    <div class="pre-scrollable">
-                        <ul class="list-group">
-                            <%
-                            for (int i = stories.length - 1; i >= 0; i--)
-                            {
-                        %>
-                            <li class="list-group-item">[<%=stories[i].getUsername()%>] - <%=stories[i].getStory()%>
-                                <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="View">
-                                <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Delete">
-                            </li>
-                            <%
-                                }
-                            %>
-                        </ul>
-                    </div>
+            <div class="well well-sm">
+                <h3><p class="text-primary">Story by<%=story.getUsername()%>
+                </h3>
+                <div class="pre-scrollable">
+                    <%=story.getStory()%>
                 </div>
             </div>
         </div>
@@ -98,15 +81,7 @@
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
-                <div class="form-group">
-                    <label for="storyText">Tell your story</label>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="storyText" name="storyText"
-                               placeholder="What's your story?">
-                    </div>
-                    <!-- Button -->
-                    <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
-                </div>
+                    <input type="submit" class="btn btn-info" name="<%=story.getStoryId()%>" value="Delete">
                 </div>
             </div>
         </div>

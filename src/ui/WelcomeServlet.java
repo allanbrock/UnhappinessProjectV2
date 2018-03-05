@@ -37,6 +37,8 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
         else if (buttonValue != null && buttonValue.equals("Log In")){
             user = UserDao.getUser(username);
             if (user == null) {
+                String err = "Incorrect username and password.";
+                request.setAttribute("errorMessage", err);
                 // We don't know who this is.
                 // We're going to stay on this page.
                 RequestDispatcher dispatcher=request.getRequestDispatcher("/welcome.jsp");

@@ -15,13 +15,11 @@
 
 </head>
 <body>
-<%--
-  UiMessage msg = (UiMessage) request.getAttribute("message");
-  if (msg == null) {
-      msg = new UiMessage();
-      msg.setMessage("");
-  }
---%>
+
+<%
+  String errorMessage = (String) request.getAttribute("errorMessage");
+%>
+
 <p></p>
 <p></p>
 <div class="container">
@@ -41,12 +39,13 @@
   </div>
 
 <div class="container">
-  <!-- Display a message if defined -->
-  <%-- if (msg.getMessage().length() > 0) { %>
+    <%
+    if (errorMessage != null) { %>
+
   <div class="alert alert-danger">
-    <strong>Info</strong> <%=msg.getMessage()%>
+    <strong>Info</strong> <%=errorMessage%>
   </div>
-  <% } --%>
+    <% } %>
 
 </form>
 </div>

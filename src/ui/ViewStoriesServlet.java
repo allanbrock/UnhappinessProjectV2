@@ -7,7 +7,9 @@ import models.StoryModel;
 import models.UserModel;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -29,9 +31,21 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
 
         // Get data from the request
         UserModel user = loadUserFromRequest(request);
+
+        String viewButtonName = getButtonNameGivenValue(request, "View");
+        if (viewButtonName != null) {
+            int storyId = Integer.parseInt(viewButtonName);
+            handleViewButton(request, response, user, storyId);
+        }
+
         String storyText=request.getParameter("storyText");
         String buttonValue = request.getParameter("submitButton");
 
+        String storyIdAsString = getButtonNameGivenValue(request, "Delete");
+        if (storyIdAsString != null) {
+            int storyId = Integer.parseInt(storyIdAsString);
+            StoryDao.deleteStory(storyId);
+        }
         // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
             addStory(user, storyText);
@@ -45,6 +59,16 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
         RequestDispatcher dispatcher=request.getRequestDispatcher("/viewstories.jsp");
         dispatcher.forward(request, response);
 
+    }
+
+    private void handleViewButton(HttpServletRequest request, HttpServletResponse response, UserModel user, int storyId) throws ServletException, IOException {
+        StoryModel story = StoryDao.getStory(storyId);
+
+        // Load any data we need on the page into the request.
+        request.setAttribute("user", user);
+        request.setAttribute("story", story);
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewstory.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -110,10 +134,25 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
      */
     private void logRequestParameters(javax.servlet.http.HttpServletRequest request) {
         Enumeration<String> params = request.getParameterNames();
-        while(params.hasMoreElements()){
+        while (params.hasMoreElements()) {
             String paramName = params.nextElement();
-            logger.info("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+            logger.info("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
         }
+
+    }
+
+    private String getButtonNameGivenValue(HttpServletRequest request, String buttonValue) {
+        Enumeration<String> params = request.getParameterNames();
+
+        while(params.hasMoreElements()) {
+            String paramName = params.nextElement();
+            String paramValue = request.getParameter(paramName);
+            if (paramValue.equals(buttonValue)) {
+                return paramName;
+            }
+        }
+
+        return null;
     }
 
 }
