@@ -36,12 +36,17 @@
         story = new StoryModel();
         story.setStory("Unavailable.");
     }
+
+    StoryModel comments[] = (StoryModel[]) request.getAttribute("storycomments");
+    if (comments == null) {
+        comments = new StoryModel[0];
+    }
 %>
 <p></p>
 <p></p>
 <div class="container">
 
-    <form action="viewStories" method="post">
+    <form action="viewStory" method="post">
 
         <!-- Navigation Bar -->
         <nav class="navbar navbar-inverse">
@@ -55,8 +60,8 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="viewStories">Stories</a></li>
-                        <li class="inactive"><a href="viewStories">Ratings</a></li>
+                        <li class="active"><a href="viewStories?username=<%=user.getUsername()%>">Stories</a></li>
+                        <li class="inactive"><a href="viewStories?username=<%=user.getUsername()%>">Ratings</a></li>
                         <li class="inactive"><a href=""><%=user.getUsername()%></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -69,10 +74,33 @@
         <!-- Display story -->
         <div class="container">
             <div class="well well-sm">
-                <h3><p class="text-primary">Story by<%=story.getUsername()%>
+                <h3><p class="text-primary">Story by <%=story.getUsername()%>
                 </h3>
                 <div class="pre-scrollable">
                     <%=story.getStory()%>
+                </div>
+            </div>
+
+            <!-- Comments on story -->
+            <!-- Display a list of stories -->
+            <div class="container">
+                <div class="row">
+                    <div class="well well-sm">
+                        <h3><p class="text-primary"><%=comments.length%> Comments</h3>
+                        <div class="pre-scrollable">
+                            <ul class="list-group">
+                                <%
+                                    for (int i = comments.length - 1; i >= 0; i--)
+                                    {
+                                %>
+                                <li class="list-group-item">[<%=comments[i].getUsername()%>] - <%=comments[i].getStory()%>
+                                </li>
+                                <%
+                                    }
+                                %>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,8 +109,18 @@
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
-                    <input type="submit" class="btn btn-info" name="<%=story.getStoryId()%>" value="Delete">
+                    <div class="form-group">
+                        <label for="storyText">Comment</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="storyText" name="storyText"
+                                   placeholder="What's your comment?">
+                        </div>
+                        <!-- Button -->
+                        <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
+                    </div>
                 </div>
+            </div>
+
             </div>
         </div>
 
@@ -91,6 +129,7 @@
              had an input field with the username.
          -->
         <input type="hidden" name="username" value="<%=user.getUsername()%>">
+        <input type="hidden" name="storyId" value="<%=story.getStoryId()%>">
 
     </form>
 </div>

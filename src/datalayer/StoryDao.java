@@ -74,6 +74,28 @@ public class StoryDao {
     }
 
     /**
+     * Return all saved stories.
+     */
+    public static ArrayList<StoryModel> getStoriesThatAreComments(int commentsOnStoryId) {
+        ArrayList<StoryModel> stories = new ArrayList<>();
+        String dir = DaoUtils.storageDirectoryName();
+        File folder = new File(dir);
+        File[] listOfFiles = folder.listFiles();
+
+        for(int i = 0; i < listOfFiles.length; i++){
+            if(listOfFiles[i].getName().startsWith("story") &&
+                    listOfFiles[i].getName().endsWith(".txt")){
+                StoryModel story = getStory(listOfFiles[i]);
+                if (story.getCommentOnStoryID() == commentsOnStoryId) {
+                    stories.add(getStory(listOfFiles[i]));
+                }
+            }
+        }
+
+        return stories;
+    }
+
+    /**
      * Given a story ID, where are we saving it to storage (file name)?
      */
     private static String getFilePath(int storyId) {

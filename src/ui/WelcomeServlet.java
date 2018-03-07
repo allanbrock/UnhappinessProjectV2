@@ -45,6 +45,8 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
                 dispatcher.forward(request, response);
                 return;
             }
+
+            request.getSession().setAttribute("username", user.getUsername());
         }
 
         // Or by anonymous

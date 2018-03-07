@@ -54,8 +54,8 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="viewStories">Stories</a></li>
-                        <li class="inactive"><a href="viewStories">Ratings</a></li>
+                        <li class="active"><a href="viewStories?username=<%=user.getUsername()%>">Stories</a></li>
+                        <li class="inactive"><a href="viewStories?username=<%=user.getUsername()%>">Ratings</a></li>
                         <li class="inactive"><a href=""><%=user.getUsername()%></a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -64,11 +64,6 @@
                 </div>
             </div>
         </nav>
-
-        <!-- Display the jumbotron -->
-        <div class="jumbotron">
-            <h1>Oh No!!!</h1>
-        </div>
 
         <!-- Display a list of stories -->
         <div class="container">
@@ -80,6 +75,9 @@
                             <%
                             for (int i = stories.length - 1; i >= 0; i--)
                             {
+                                // Skip the story if it's a comment.
+                                if (stories[i].getCommentOnStoryID() != 0)
+                                    continue;;
                         %>
                             <li class="list-group-item">[<%=stories[i].getUsername()%>] - <%=stories[i].getStory()%>
                                 <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="View">

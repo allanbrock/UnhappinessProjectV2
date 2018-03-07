@@ -25,4 +25,14 @@
         <url-pattern>/welcome</url-pattern>
     </servlet-mapping>
 
+
+    <servlet>
+        <servlet-name>viewStoryServlet</servlet-name>
+        <servlet-class>ui.ViewStoryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>viewStoryServlet</servlet-name>
+        <url-pattern>/viewStory</url-pattern>
+    </servlet-mapping>
+
 </web-app>
