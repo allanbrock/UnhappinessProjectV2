@@ -6,7 +6,7 @@ public class StoryModel implements Serializable {
     private int storyId = 0;
     private String story;
     private String username;
-    private int commentOnStoryID;
+    private int commentOnStoryID; // If 0, then it's an original story.
 
     public int getStoryId() {
         return storyId;

@@ -69,7 +69,11 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
         int storyId = Integer.parseInt(viewButtonName);
         StoryModel story = StoryDao.getStory(storyId);
 
-        // Load any data we need on the page into the request.
+        // Store in the session the id of the story that we're going to view.
+        // Data stored in the session will be there across many browser-server requests.
+        request.getSession().setAttribute("storyid", storyId);
+
+        // Load any data we need to use in the JSP page into the request.
         request.setAttribute("user", user);
         request.setAttribute("story", story);
         loadCommentsOnStoryIntoRequest(request, storyId);

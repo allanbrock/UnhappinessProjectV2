@@ -35,10 +35,12 @@ public class ViewStoryServlet extends javax.servlet.http.HttpServlet {
         String commentText = request.getParameter("storyText");
         String buttonValue = request.getParameter("submitButton");
 
-        String storyIdAsString =request.getParameter("storyId");
+        // We stored the id of the story being displayed in the session in ViewStoriesServlet.
+        Integer storyIdAsInteger = (Integer) request.getSession().getAttribute("storyid");
+
         int storyBeingDisplayedId = 0;
-        if (storyIdAsString != null) {
-            storyBeingDisplayedId = Integer.parseInt(storyIdAsString);
+        if (storyIdAsInteger != null) {
+            storyBeingDisplayedId = storyIdAsInteger.intValue();
         }
 
         // Maybe the user submitted a comment.
@@ -56,7 +58,9 @@ public class ViewStoryServlet extends javax.servlet.http.HttpServlet {
         // Load any data we need on the page into the request.
         request.setAttribute("user", user);
         request.setAttribute("story", story);
-        loadCommentsOnStoryIntoRequest(request, story.getStoryId());
+
+
+        loadCommentsOnStoryIntoRequest(request, storyId);
 
         RequestDispatcher dispatcher=request.getRequestDispatcher("/viewstory.jsp");
         dispatcher.forward(request, response);
@@ -74,7 +78,7 @@ public class ViewStoryServlet extends javax.servlet.http.HttpServlet {
      * Grab the username from the request and create a user model.
      */
     private UserModel loadUserFromRequest(HttpServletRequest request) {
-        String username=request.getParameter("username");
+        String username = (String) request.getSession().getAttribute("username");
         UserModel user = UserDao.getUser(username);
 
         // If there is no user for some weird reason, just use anonymous.

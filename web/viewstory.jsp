@@ -125,11 +125,7 @@
         </div>
 
 
-        <!-- This is a screet input to the post!  Acts as if the user
-             had an input field with the username.
-         -->
-        <input type="hidden" name="username" value="<%=user.getUsername()%>">
-        <input type="hidden" name="storyId" value="<%=story.getStoryId()%>">
+        <!-- Keep in mind that in servlets we also storing data in the session. -->
 
     </form>
 </div>
