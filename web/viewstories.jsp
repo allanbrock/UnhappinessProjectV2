@@ -80,8 +80,8 @@
                                     continue;;
                         %>
                             <li class="list-group-item">[<%=stories[i].getUsername()%>] - <%=stories[i].getStory()%>
-                                <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="View">
-                                <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Delete">
+                                <button type="submit" class="btn btn-default btn-xs" name="<%=stories[i].getStoryId()%>" value="View">View</button>
+                                <button type="submit" class="btn btn-default btn-xs" name="<%=stories[i].getStoryId()%>" value="Delete">Delete</button>
                             </li>
                             <%
                                 }
