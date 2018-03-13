@@ -77,9 +77,16 @@
                             {
                                 // Skip the story if it's a comment.
                                 if (stories[i].getCommentOnStoryID() != 0)
-                                    continue;;
+                                    continue;
                         %>
-                            <li class="list-group-item">[<%=stories[i].getUsername()%>] - <%=stories[i].getStory()%>
+                            <li class="list-group-item">
+                                <% if (stories[i].getUsername().equals("anonymous")) { %>
+                                <span class="glyphicon glyphicon-user"></span>
+                                <% } else { %>
+                                <span class="glyphicon glyphicon-user" style="color:blue" ><%=stories[i].getUsername()%></span>
+
+                                <% } %>
+                                <%=stories[i].getStory()%>
                                 <button type="submit" class="btn btn-default btn-xs" name="<%=stories[i].getStoryId()%>" value="View">View</button>
                                 <button type="submit" class="btn btn-default btn-xs" name="<%=stories[i].getStoryId()%>" value="Delete">Delete</button>
                             </li>

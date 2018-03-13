@@ -93,7 +93,14 @@
                                     for (int i = comments.length - 1; i >= 0; i--)
                                     {
                                 %>
-                                <li class="list-group-item">[<%=comments[i].getUsername()%>] - <%=comments[i].getStory()%>
+                                <li class="list-group-item">
+                                    <% if (comments[i].getUsername().equals("anonymous")) { %>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <% } else { %>
+                                    <span class="glyphicon glyphicon-user" style="color:blue" ><%=comments[i].getUsername()%></span>
+
+                                    <% } %>
+                                    <%=comments[i].getStory()%>
                                 </li>
                                 <%
                                     }
