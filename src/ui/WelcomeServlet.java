@@ -31,6 +31,7 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
             user = new UserModel();
             user.setUsername(username);
             UserDao.saveUser(user);
+            request.getSession().setAttribute("username", user.getUsername());
         }
 
         // Or log in
