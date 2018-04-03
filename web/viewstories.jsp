@@ -1,5 +1,6 @@
 <%@ page import="models.StoryModel" %>
 <%@ page import="models.UserModel" %>
+<%@ page import="datalayer.LikeDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -89,6 +90,8 @@
                                 <%=stories[i].getStory()%>
                                 <button type="submit" class="btn btn-default btn-xs" name="<%=stories[i].getStoryId()%>" value="View">View</button>
                                 <button type="submit" class="btn btn-default btn-xs" name="<%=stories[i].getStoryId()%>" value="Delete">Delete</button>
+<!-- LIKE-->                    <button type="submit" class="btn btn-default btn-xs" name="<%=stories[i].getStoryId()%>" value="Like">Like</button>
+                                Likes: <%=LikeDao.getNumberOfLikes(stories[i].getStoryId())%>
                             </li>
                             <%
                                 }
